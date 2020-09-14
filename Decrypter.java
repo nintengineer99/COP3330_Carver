@@ -39,7 +39,7 @@ public class Decrypter {
         return new int[]{tempTens, tempOnes, tempThousands, tempHundreds};
     }
 
-    // reverses the offset done to the [0, 9] offset by the encryption algorithm's modulus
+    // reverses the offset done to the [0, 9] domain by the encryption algorithm's modulus
     private int invertMod(int invertModNum) {
         if (invertModNum - 7 < 0)
         {
