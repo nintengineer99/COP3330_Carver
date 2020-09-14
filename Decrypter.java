@@ -4,7 +4,7 @@ public class Decrypter {
     // decrypt entered value
     public String decrypt(String userNum) {
         // declare int array to store value for work
-        int userDecryptNum[];
+        int[] userDecryptNum;
         // convert the string to an int array and begin decryption
         userDecryptNum = convertStringToInt(userNum);
         userDecryptNum = decryptProcess(userDecryptNum);
@@ -22,23 +22,21 @@ public class Decrypter {
         return temp;
     }
 
-    private String convertIntToString(int userNumInt[]) {
-        String temp = Arrays.toString(userNumInt).replace("[", "")
+    private String convertIntToString(int[] userNumInt) {
+        return Arrays.toString(userNumInt).replace("[", "")
                 .replace("]", "").replace(",", "")
                 .replace(" ", "");
-        return temp;
     }
 
     // invert the encryption algorithm and switch digits 1 and 3, then 2 and 4
-    private int[] decryptProcess(int userNumInt[]) {
+    private int[] decryptProcess(int[] userNumInt) {
         int tempOnes = userNumInt[3], tempTens = userNumInt[2], tempHundreds = userNumInt[1],
                 tempThousands = userNumInt[0];
         tempOnes = invertMod(tempOnes) - 7;
         tempTens = invertMod(tempTens) - 7;
         tempHundreds = invertMod(tempHundreds) - 7;
         tempThousands = invertMod(tempThousands) - 7;
-        int newNum[] = {tempTens, tempOnes, tempThousands, tempHundreds};
-        return newNum;
+        return new int[]{tempTens, tempOnes, tempThousands, tempHundreds};
     }
 
     // reverses the offset done to the [0, 9] offset by the encryption algorithm's modulus

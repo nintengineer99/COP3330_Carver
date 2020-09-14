@@ -4,7 +4,7 @@ public class Encrypter {
     // encrypt entered value
     public String encrypt(String userNum) {
         // declare int array to store value for work
-        int userEncryptNum[];
+        int[] userEncryptNum;
         // convert the string to an int array and begin encryption
         userEncryptNum = convertStringToInt(userNum);
         userEncryptNum = encryptProcess(userEncryptNum);
@@ -22,23 +22,21 @@ public class Encrypter {
         return temp;
     }
 
-    private String convertIntToString(int userNumInt[]) {
-        String temp = Arrays.toString(userNumInt).replace("[", "")
+    private String convertIntToString(int[] userNumInt) {
+        return Arrays.toString(userNumInt).replace("[", "")
                 .replace("]", "").replace(",", "")
                 .replace(" ", "");
-        return temp;
     }
 
     // encrypt number by adding 7 to it than finding the modulus of that number and 10
     // then switch the digits 1 and 3, and 2 and 4
-    private int[] encryptProcess(int userNumInt[]) {
+    private int[] encryptProcess(int[] userNumInt) {
         int tempOnes = userNumInt[3], tempTens = userNumInt[2], tempHundreds = userNumInt[1],
                 tempThousands = userNumInt[0];
         tempOnes = (tempOnes + 7) % 10;
         tempTens = (tempTens + 7) % 10;
         tempHundreds = (tempHundreds + 7) % 10;
         tempThousands = (tempThousands + 7) % 10;
-        int newNum[] = {tempTens, tempOnes, tempThousands, tempHundreds};
-        return newNum;
+        return new int[]{tempTens, tempOnes, tempThousands, tempHundreds};
     }
 }
