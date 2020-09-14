@@ -1,15 +1,15 @@
 import java.util.Arrays;
 
-public class Encrypter {
-    // encrypt entered value
-    public String encrypt(String userNum) {
+public class Decrypter {
+    // decrypt entered value
+    public String decrypt(String userNum) {
         // declare int array to store value for work
-        int userEncryptNum[];
-        // convert the string to an int array and begin encryption
-        userEncryptNum = convertStringToInt(userNum);
-        userEncryptNum = encryptProcess(userEncryptNum);
+        int userDecryptNum[];
+        // convert the string to an int array and begin decryption
+        userDecryptNum = convertStringToInt(userNum);
+        userDecryptNum = decryptProcess(userDecryptNum);
         // convert int array back to string and return
-        userNum = convertIntToString(userEncryptNum);
+        userNum = convertIntToString(userDecryptNum);
         return userNum;
     }
 
@@ -29,16 +29,25 @@ public class Encrypter {
         return temp;
     }
 
-    // encrypt number by adding 7 to it than finding the modulus of that number and 10
-    // then switch the digits 1 and 3, and 2 and 4
-    private int[] encryptProcess(int userNumInt[]) {
+    // invert the encryption algorithm and switch digits 1 and 3, then 2 and 4
+    private int[] decryptProcess(int userNumInt[]) {
         int tempOnes = userNumInt[3], tempTens = userNumInt[2], tempHundreds = userNumInt[1],
                 tempThousands = userNumInt[0];
-        tempOnes = (tempOnes + 7) % 10;
-        tempTens = (tempTens + 7) % 10;
-        tempHundreds = (tempHundreds + 7) % 10;
-        tempThousands = (tempThousands + 7) % 10;
+        tempOnes = invertMod(tempOnes) - 7;
+        tempTens = invertMod(tempTens) - 7;
+        tempHundreds = invertMod(tempHundreds) - 7;
+        tempThousands = invertMod(tempThousands) - 7;
         int newNum[] = {tempTens, tempOnes, tempThousands, tempHundreds};
         return newNum;
     }
+
+    // reverses the offset done to the [0, 9] offset by the encryption algorithm's modulus
+    private int invertMod(int invertModNum) {
+        if (invertModNum - 7 < 0)
+        {
+            return invertModNum + 10;
+        }
+        return invertModNum;
+    }
+
 }
