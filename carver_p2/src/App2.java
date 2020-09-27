@@ -81,12 +81,12 @@ public class App2 {
     // prompt user to decide whether or not they want to keep putting in new data
     public static boolean moreInput() {
         String choice;
-        System.out.print("\nWould you like to enter data? Enter Y for yes, N for no: ");
+        System.out.print("\nWould you like to enter data? Enter Y or y for yes, N or n for no: ");
         choice = input.next();
 
         // make sure user isn't inputting an invalid choice (i.e. cat or dog instead of Y or N)
         while (!(choice.equalsIgnoreCase("Y")) && !(choice.equalsIgnoreCase("N"))) {
-            System.out.println("\nInvalid input. Please only enter Y for yes or N for no: ");
+            System.out.println("\nInvalid input. Please only enter Y or y for yes, N or n for no: ");
             choice = input.next();
         }
 
