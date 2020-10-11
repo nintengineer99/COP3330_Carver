@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 public class Circle extends Shape2D {
     private final double radius;
 
@@ -12,6 +14,6 @@ public class Circle extends Shape2D {
 
     @Override
     public double getArea() {
-        return (3.14 * (radius * radius));
+        return (Math.PI * (radius * radius));
     }
 }
