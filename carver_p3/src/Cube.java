@@ -1,5 +1,7 @@
+// cube class
 public class Cube extends Shape3D {
-    private final double length;
+    // create cube object
+    public double length;
 
     public Cube(double length) {
         this.length = length;

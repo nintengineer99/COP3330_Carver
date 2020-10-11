@@ -1,5 +1,8 @@
+// square class
 public class Square extends Shape2D {
-    private final double length;
+    // create square object
+
+    public double length;
 
     public Square(double length) {
         this.length = length;

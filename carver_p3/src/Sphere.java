@@ -1,7 +1,10 @@
+// library import
 import java.lang.Math;
 
+// sphere class
 public class Sphere extends Shape3D {
-    private final double radius;
+    // create a sphere object
+    public double radius;
 
     public Sphere(double radius) {
         this.radius = radius;

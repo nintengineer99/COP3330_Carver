@@ -1,9 +1,12 @@
+// library import
 import java.lang.Math;
 
+// pyramid class
 public class Pyramid extends Shape3D {
-    private final double baseLength;
-    private final double baseWidth;
-    private final double height;
+    // create pyramid object
+    public double baseLength;
+    public double baseWidth;
+    public double height;
 
     public Pyramid(double baseLength, double baseWidth, double height) {
         this.baseLength = baseLength;

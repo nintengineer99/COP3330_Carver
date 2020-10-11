@@ -1,7 +1,10 @@
+// library import
 import java.lang.Math;
 
+// circle class
 public class Circle extends Shape2D {
-    private final double radius;
+    // create circle object
+    public double radius;
 
     public Circle(double radius) {
         this.radius = radius;

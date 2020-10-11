@@ -1,6 +1,9 @@
+// triangle class
 public class Triangle extends Shape2D {
-    private final double base;
-    private final double height;
+    // create triangle object
+
+    public double base;
+    public double height;
 
     public Triangle(double base, double height) {
         this.base = base;

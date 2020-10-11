@@ -1,10 +1,9 @@
+// library imports
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ShapeTest {
-
     // square tests
-
     @Test
     public void testSquareName() {
         Shape shape = new Square(10);
@@ -24,7 +23,6 @@ class ShapeTest {
     }
 
     // triangle tests
-
     @Test
     public void testTriangleName() {
         Shape shape = new Triangle(100, 100);
@@ -44,7 +42,6 @@ class ShapeTest {
     }
 
     // circle tests
-
     @Test
     public void testCircleName() {
         Shape shape = new Circle(10);
@@ -64,7 +61,6 @@ class ShapeTest {
     }
 
     // cube tests
-
     @Test
     public void testCubeName() {
         Shape shape = new Cube(100);
@@ -72,7 +68,6 @@ class ShapeTest {
     }
 
     // area
-
     @Test
     public void testCubeArea() {
         Shape3D shape = new Cube(10);
@@ -86,7 +81,6 @@ class ShapeTest {
     }
 
     // volume
-
     @Test
     public void testCubeVolume() {
         Shape3D shape = new Cube(10);
@@ -100,7 +94,6 @@ class ShapeTest {
     }
 
     // pyramid tests
-
     @Test
     public void testPyramidName() {
         Shape shape = new Pyramid(10, 10, 10);
@@ -108,7 +101,6 @@ class ShapeTest {
     }
 
     // area
-
     @Test
     public void testPyramidArea() {
         Shape3D shape = new Pyramid(10, 10, 10);
@@ -122,7 +114,6 @@ class ShapeTest {
     }
 
     // volume
-
     @Test
     public void testPyramidVolume() {
         Shape3D shape = new Pyramid(10, 10, 10);
@@ -136,7 +127,6 @@ class ShapeTest {
     }
 
     // sphere tests
-
     @Test
     public void testSphereName() {
         Shape shape = new Sphere(10);
@@ -144,7 +134,6 @@ class ShapeTest {
     }
 
     // area
-
     @Test
     public void testSphereArea() {
         Shape3D shape = new Sphere(10);
@@ -158,7 +147,6 @@ class ShapeTest {
     }
 
     // volume
-
     @Test
     public void testSphereVolume() {
         Shape3D shape = new Sphere(10);
