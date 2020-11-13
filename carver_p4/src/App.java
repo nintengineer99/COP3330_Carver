@@ -23,14 +23,16 @@ public class App {
                             displayListOperationMenu();
                             try {
                                 userChoice2 = in.nextInt();
+                                in.nextLine();
                                 switch (userChoice2) {
                                     case 1:
-                                        TaskItem task = new TaskItem();
+                                        TaskItem task = new TaskItem("default", "default", "9999-12-31");
                                         System.out.print("Task title: ");
                                         task.setTitle(in.nextLine());
-                                        System.out.print("Task title: ");
-                                        task.setTitle(in.nextLine());
-
+                                        System.out.print("Task description: ");
+                                        task.setDesc(in.nextLine());
+                                        System.out.print("Task due date (YYYY-MM-DD): ");
+                                        task.setDueDate(in.nextLine());
                                         break;
                                     case 2:
                                         break;
@@ -99,7 +101,7 @@ public class App {
                 "3) Edit an item%n%n" +
                 "4) Remove an item%n" +
                 "5) Mark an item as complete%n" +
-                "6) Unmark an item as complete%n%n" +
+                "6) Unmark an item as complete%n" +
                 "7) Save the current list%n" +
                 "8) Quit to the main menu%n%n" +
                 "> ");

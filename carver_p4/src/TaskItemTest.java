@@ -10,7 +10,8 @@ public class TaskItemTest {
 
     @Test
     public void creatingTaskItemFailsWithInvalidTitle() {
-
+        TaskItem task = new TaskItem("", "E", "9999-12-31");
+        assertThrows(IllegalArgumentException.class, () -> task.setTitle(task.title));
     }
 
     @Test
