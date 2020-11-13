@@ -1,5 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class App {
 
@@ -8,13 +9,56 @@ public class App {
     public static void main(String[] args) {
         boolean shouldContinue = true;
         while(shouldContinue) {
-            int userChoice = 0;
+            int userChoice1 = 0;
             displayMainMenu();
             try {
-                userChoice = in.nextInt();
-                switch (userChoice) {
+                userChoice1 = in.nextInt();
+                switch (userChoice1) {
                     case 1:
-                        displayListOperationMenu();
+                        TaskList taskList = new TaskList();
+                        boolean continueListOperations = true;
+                        System.out.println("New task list has been created.");
+                        while (continueListOperations) {
+                            int userChoice2 = 0;
+                            displayListOperationMenu();
+                            try {
+                                userChoice2 = in.nextInt();
+                                switch (userChoice2) {
+                                    case 1:
+                                        TaskItem task = new TaskItem();
+                                        System.out.print("Task title: ");
+                                        task.setTitle(in.nextLine());
+                                        System.out.print("Task title: ");
+                                        task.setTitle(in.nextLine());
+
+                                        break;
+                                    case 2:
+                                        break;
+                                    case 3:
+                                        break;
+                                    case 4:
+                                        break;
+                                    case 5:
+                                        break;
+                                    case 6:
+                                        break;
+                                    case 7:
+                                        break;
+                                    case 8:
+                                        continueListOperations = false;
+                                        break;
+                                }
+                            }
+                            catch (IllegalArgumentException e) {
+                                System.out.println("WARNING: Numbers 1 through 8 are the only valid options.");
+                            }
+                            catch (InputMismatchException e) {
+                                System.out.println("WARNING: You must only enter integers 1 through 8 to make your choice.");
+                            }
+                            finally {
+                                in.nextLine();
+                            }
+                        }
                         break;
                     case 2:
 
@@ -27,7 +71,7 @@ public class App {
                 }
             }
             catch(IllegalArgumentException e) {
-                System.out.println("WARNING: 1, 2, or 3 are the only valid options.");
+                System.out.println("WARNING: Numbers 1, 2, or 3 are the only valid options.");
             }
             catch(InputMismatchException e) {
                 System.out.println("WARNING: You must only enter integers 1, 2, or 3 to make your choice.");
