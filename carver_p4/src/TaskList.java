@@ -13,4 +13,14 @@ public class TaskList {
     protected TaskItem getTask(int index) {
         return tasks.get(index);
     }
+
+    protected void editTask(int index, String newTitle, String newDesc, String newDate) {
+        if (index < 0 || index > taskCount) {
+            throw new IndexOutOfBoundsException();
+        }
+        TaskItem editedTask = getTask(index);
+        editedTask.setTitle(newTitle);
+        editedTask.setDesc(newDesc);
+        editedTask.setDueDate(newDate);
+    }
 }

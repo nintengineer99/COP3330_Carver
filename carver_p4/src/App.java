@@ -102,18 +102,15 @@ public class App {
         int index = in.nextInt();
         in.nextLine();
         String newTitle, newDesc, newDate;
-        TaskItem editedTask;
+        //TaskItem editedTask;
         try {
-            editedTask = taskList.getTask(index);
             System.out.print("Enter a new title for task " + index + ": ");
             newTitle = in.nextLine();
             System.out.print("Enter a new description for task " + index + ": ");
             newDesc = in.nextLine();
             System.out.print("Enter a new task due date (YYYY-MM-DD for task " + index + ": ");
             newDate = in.nextLine();
-            editedTask.setTitle(newTitle);
-            editedTask.setDesc(newDesc);
-            editedTask.setDueDate(newDate);
+            taskList.editTask(index, newTitle, newDesc, newDate);
         }
         catch (IndexOutOfBoundsException e) {
             System.out.println("WARNING: You cannot access that task because you called for an invalid index.");
@@ -122,10 +119,10 @@ public class App {
             System.out.println("WARNING: You must enter the index of the task you wish to edit as an integer (0-based).");
         }
         catch (IllegalArgumentException illegalTitle) {
-            System.out.println("WARNING: Title must contain one or more characters. Task not created.");
+            System.out.println("WARNING: Title must contain one or more characters. Task not edited.");
         }
         catch (DateTimeException illegalDate) {
-            System.out.println("WARNING: Invalid due date. Task not created");
+            System.out.println("WARNING: Invalid due date. Task not edited");
         }
         finally{
             in.nextLine();
