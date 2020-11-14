@@ -10,11 +10,19 @@ public class TaskItem {
     protected LocalDate currentDate = java.time.LocalDate.now();
     protected boolean isComplete = false;
 
+    protected String getTitle() {
+        return title;
+    }
+
     protected void setTitle(String title) {
         if (title.equalsIgnoreCase("")) {
                 throw new IllegalArgumentException();
         }
         this.title = title;
+    }
+
+    protected String getDesc() {
+        return description;
     }
 
     protected void setDesc(String description) {
@@ -24,6 +32,10 @@ public class TaskItem {
     protected LocalDate getUserDate(String userDate) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(userDate, dateFormat);
+        return date;
+    }
+
+    protected String getDueDate() {
         return date;
     }
 
