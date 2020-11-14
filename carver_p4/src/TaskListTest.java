@@ -5,7 +5,13 @@ public class TaskListTest {
 
     @Test
     public void addingTaskItemsIncreasesSize() {
-
+        TaskList tasks = new TaskList();
+        TaskItem task = new TaskItem();
+        task.setTitle("E");
+        task.setDesc("This is a description.");
+        task.setDueDate("9999-12-31");
+        tasks.addTask(task);
+        assertEquals(1, tasks.taskCount);
     }
 
     @Test

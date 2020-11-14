@@ -1,3 +1,4 @@
+import java.time.DateTimeException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -26,15 +27,12 @@ public class App {
                                 in.nextLine();
                                 switch (userChoice2) {
                                     case 1:
-                                        TaskItem task = new TaskItem("default", "default", "9999-12-31");
-                                        System.out.print("Task title: ");
-                                        task.setTitle(in.nextLine());
-                                        System.out.print("Task description: ");
-                                        task.setDesc(in.nextLine());
-                                        System.out.print("Task due date (YYYY-MM-DD): ");
-                                        task.setDueDate(in.nextLine());
+                                        System.out.println("Current Tasks");
+                                        System.out.println("-------------");
+                                        printTasks(taskList);
                                         break;
                                     case 2:
+                                        addTaskToList(taskList);
                                         break;
                                     case 3:
                                         break;
@@ -98,12 +96,52 @@ public class App {
                 "---------%n%n" +
                 "1) View the list%n" +
                 "2) Add an item%n" +
-                "3) Edit an item%n%n" +
+                "3) Edit an item%n" +
                 "4) Remove an item%n" +
                 "5) Mark an item as complete%n" +
                 "6) Unmark an item as complete%n" +
                 "7) Save the current list%n" +
                 "8) Quit to the main menu%n%n" +
                 "> ");
+    }
+
+    private static TaskList addTaskToList(TaskList tasks) {
+        System.out.print("Task title: ");
+        String userTitle = in.nextLine();
+        System.out.print("Task description: ");
+        String userDesc = in.nextLine();
+        System.out.print("Task due date (YYYY-MM-DD): ");
+        String userDate = in.nextLine();
+        try {
+            TaskItem task = new TaskItem();
+            task.setTitle(userTitle);
+            task.setDesc(userDesc);
+            task.setDueDate(userDate);
+            tasks.addTask(task);
+        }
+        catch (IllegalArgumentException illegalTitle) {
+            System.out.println("WARNING: Title must contain one or more characters. Task not created.");
+        }
+        catch (DateTimeException illegalDate) {
+            System.out.println("WARNING: Invalid due date. Task not created");
+        }
+        finally {
+            in.nextLine();
+        }
+        return tasks;
+    }
+
+    private static void printTasks(TaskList tasks) {
+        for (int i = 0; i < tasks.taskCount; i++) {
+            TaskItem currentTask = tasks.getTask(i);
+            if (!currentTask.isComplete) {
+                System.out.println(i + ") [" + currentTask.date + "] " + currentTask.title + ": "
+                        + currentTask.description);
+            }
+            else {
+                System.out.println("*** " + i + ") [" + currentTask.date + "] " + currentTask.title + ": "
+                        + currentTask.description);
+            }
+        }
     }
 }

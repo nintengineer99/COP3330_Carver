@@ -1,28 +1,20 @@
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 
 public class TaskItem {
     protected String title;
     protected String description;
     protected String date;
     protected LocalDate currentDate = java.time.LocalDate.now();
-
-    public TaskItem(String title, String description, String date) {
-        this.title = title;
-        this.description = description;
-        this.date = date;
-    }
+    protected boolean isComplete = false;
 
     protected void setTitle(String title) {
-        try {
-            if (title.equalsIgnoreCase("")) {
+        if (title.equalsIgnoreCase("")) {
                 throw new IllegalArgumentException();
-            }
-            this.title = title;
         }
-        catch(IllegalArgumentException e) {
-            System.out.println("WARNING: Title must contain at least 1 character.");
-        }
+        this.title = title;
     }
 
     protected void setDesc(String description) {
@@ -36,14 +28,9 @@ public class TaskItem {
     }
 
     protected void setDueDate(String date) {
-        try {
-            if (currentDate.isAfter(getUserDate(date))) {
-                throw new IllegalArgumentException();
-            }
-            this.date = date;
+        if (currentDate.isAfter(getUserDate(date))) {
+            throw new DateTimeException("WARNING: Invalid due date. Task not created");
         }
-        catch (IllegalArgumentException e) {
-            System.out.println("WARNING: Your due date must be either on or after today's date.");
-        }
+        this.date = date;
     }
 }
