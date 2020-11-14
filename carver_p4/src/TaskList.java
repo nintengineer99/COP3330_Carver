@@ -1,4 +1,6 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Formatter;
 
 public class TaskList {
     int taskCount = 0;
@@ -43,10 +45,25 @@ public class TaskList {
         getTask(index).isComplete = true;
     }
 
-    public void unmarkTask(int index) {
+    protected void unmarkTask(int index) {
         if (index < 0 || index > taskCount) {
             throw new IndexOutOfBoundsException();
         }
         getTask(index).isComplete = false;
+    }
+
+    protected void saveList(String fileName) throws FileNotFoundException {
+        Formatter output = new Formatter(fileName);
+        for(int i = 0; i < taskCount; i++) {
+            TaskItem task = getTask(i);
+            if(!task.isComplete) {
+                output.format("%d) [%s] %s: %s%n", i, task.getDueDate(), task.getTitle(), task.getDesc());
+
+            }
+            else {
+                output.format("*** %d) [%s] %s: %s%n", i, task.getDueDate(), task.getTitle(), task.getDesc());
+            }
+        }
+        output.close();
     }
 }

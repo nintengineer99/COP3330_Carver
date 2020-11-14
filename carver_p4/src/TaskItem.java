@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 
-public class TaskItem {
+public class TaskItem implements Serializable {
     protected String title;
     protected String description;
     protected String date;

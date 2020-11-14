@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.time.DateTimeException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -67,6 +68,7 @@ public class App {
                                         break;
                                     // save
                                     case 7:
+                                        saveListToFile(taskList);
                                         break;
                                     // quit
                                     case 8:
@@ -106,6 +108,17 @@ public class App {
             finally {
                 in.nextLine();
             }
+        }
+    }
+
+    private static void saveListToFile(TaskList tasks) {
+        System.out.print("Enter the file name to save as: ");
+        String fileName = in.nextLine();
+        try {
+            tasks.saveList(fileName);
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("WARNING: No such file was found. No list saved.");
         }
     }
 
