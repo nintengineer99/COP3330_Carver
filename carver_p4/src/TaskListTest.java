@@ -16,12 +16,29 @@ public class TaskListTest {
 
     @Test
     public void completingTaskItemChangesStatus() {
-
+        TaskList tasks = new TaskList();
+        TaskItem task = new TaskItem();
+        task.setTitle("E");
+        task.setDesc("This is a description.");
+        task.setDueDate("9999-12-31");
+        tasks.addTask(task);
+        tasks.markOffTask(0);
+        assertTrue(task.isComplete);
     }
 
     @Test
     public void completingTaskItemFailsWithInvalidIndex() {
-
+        Throwable exception = assertThrows(
+                IndexOutOfBoundsException.class, () -> {
+                    TaskList tasks = new TaskList();
+                    TaskItem task = new TaskItem();
+                    task.setTitle("E");
+                    task.setDesc("This is a description.");
+                    task.setDueDate("9999-12-31");
+                    tasks.addTask(task);
+                    tasks.markOffTask(1);
+                }
+        );
     }
 
     @Test
@@ -208,13 +225,29 @@ public class TaskListTest {
     }
 
     @Test
-    public void removingTaskItemsDecreasesSize() {
-
+    public void removingTaskItemsDecreasesSize() {TaskList tasks = new TaskList();
+        TaskItem task = new TaskItem();
+        task.setTitle("E");
+        task.setDesc("This is a description.");
+        task.setDueDate("9999-12-31");
+        tasks.addTask(task);
+        tasks.removeTask(0);
+        assertEquals(0, tasks.taskCount);
     }
 
     @Test
     public void removingTaskItemsFailsWithInvalidIndex() {
-
+        Throwable exception = assertThrows(
+                IndexOutOfBoundsException.class, () -> {
+                    TaskList tasks = new TaskList();
+                    TaskItem task = new TaskItem();
+                    task.setTitle("E");
+                    task.setDesc("This is a description.");
+                    task.setDueDate("9999-12-31");
+                    tasks.addTask(task);
+                    tasks.removeTask(1);
+                }
+        );
     }
 
     @Test
@@ -224,11 +257,30 @@ public class TaskListTest {
 
     @Test
     public void uncompletingTaskItemChangesStatus() {
-
+        TaskList tasks = new TaskList();
+        TaskItem task = new TaskItem();
+        task.setTitle("E");
+        task.setDesc("This is a description.");
+        task.setDueDate("9999-12-31");
+        task.isComplete = true;
+        tasks.addTask(task);
+        tasks.unmarkTask(0);
+        assertFalse(task.isComplete);
     }
 
     @Test
     public void uncompletingTaskItemFailsWithInvalidIndex() {
-
+        Throwable exception = assertThrows(
+                IndexOutOfBoundsException.class, () -> {
+                    TaskList tasks = new TaskList();
+                    TaskItem task = new TaskItem();
+                    task.setTitle("E");
+                    task.setDesc("This is a description.");
+                    task.setDueDate("9999-12-31");
+                    task.isComplete = true;
+                    tasks.addTask(task);
+                    tasks.unmarkTask(1);
+                }
+        );
     }
 }

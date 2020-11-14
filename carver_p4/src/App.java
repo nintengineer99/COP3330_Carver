@@ -46,12 +46,24 @@ public class App {
                                         break;
                                     // remove item
                                     case 4:
+                                        System.out.println("Current Tasks");
+                                        System.out.println("-------------");
+                                        printTasks(taskList);
+                                        removeTaskInList(taskList);
                                         break;
                                     // mark as complete
                                     case 5:
+                                        System.out.println("Uncompleted Tasks");
+                                        System.out.println("-----------------");
+                                        printIncompleteTasks(taskList);
+                                        markTaskAsComplete(taskList);
                                         break;
                                     // unmark as complete
                                     case 6:
+                                        System.out.println("Completed Tasks");
+                                        System.out.println("---------------");
+                                        printCompleteTasks(taskList);
+                                        markTaskAsIncomplete(taskList);
                                         break;
                                     // save
                                     case 7:
@@ -94,6 +106,70 @@ public class App {
             finally {
                 in.nextLine();
             }
+        }
+    }
+
+    private static void markTaskAsIncomplete(TaskList tasks) {
+        System.out.print("Which task will you unmark as completed? ");
+        int index = in.nextInt();
+        in.nextLine();
+        try {
+            tasks.unmarkTask(index);
+        }
+        catch(InputMismatchException e) {
+            System.out.println("WARNING: You must enter the index of the task you wish to unmark as complete as an integer (0-based).");
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("WARNING: You cannot unmark that task complete because you called for an invalid index.");
+        }
+    }
+
+    private static void printCompleteTasks(TaskList tasks) {
+        for (int i = 0; i < tasks.taskCount; i++) {
+            TaskItem currentTask = tasks.getTask(i);
+            if (currentTask.isComplete) {
+                System.out.println(tasks.getTaskIndex(currentTask) + ") [" + currentTask.date + "] " + currentTask.title + ": "
+                        + currentTask.description);
+            }
+        }
+    }
+
+    private static void markTaskAsComplete(TaskList tasks) {
+        System.out.print("Which task will you mark as completed? ");
+        int index = in.nextInt();
+        in.nextLine();
+        try {
+            tasks.markOffTask(index);
+        }
+        catch(InputMismatchException e) {
+            System.out.println("WARNING: You must enter the index of the task you wish to mark as complete as an integer (0-based).");
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("WARNING: You cannot mark that task complete because you called for an invalid index.");
+        }
+    }
+
+    private static void printIncompleteTasks(TaskList tasks) {
+        for (int i = 0; i < tasks.taskCount; i++) {
+            TaskItem currentTask = tasks.getTask(i);
+            if (!currentTask.isComplete) {
+                System.out.println(tasks.getTaskIndex(currentTask) + ") [" + currentTask.date + "] " + currentTask.title + ": "
+                        + currentTask.description);
+            }
+        }
+    }
+
+    private static void removeTaskInList(TaskList taskList) {
+        System.out.print("What task will you remove? ");
+        int index = in.nextInt();
+        try {
+            taskList.removeTask(index);
+        }
+        catch(InputMismatchException e) {
+            System.out.println("WARNING: You must enter the index of the task you wish to remove as an integer (0-based).");
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("WARNING: You cannot remove that task because you called for an invalid index.");
         }
     }
 
@@ -181,12 +257,12 @@ public class App {
         for (int i = 0; i < tasks.taskCount; i++) {
             TaskItem currentTask = tasks.getTask(i);
             if (!currentTask.isComplete) {
-                System.out.println(i + ") [" + currentTask.date + "] " + currentTask.title + ": "
+                System.out.println(tasks.getTaskIndex(currentTask) + ") [" + currentTask.date + "] " + currentTask.title + ": "
                         + currentTask.description);
             }
             else {
-                System.out.println("*** " + i + ") [" + currentTask.date + "] " + currentTask.title + ": "
-                        + currentTask.description);
+                System.out.println("*** " + tasks.getTaskIndex(currentTask) + ") [" + currentTask.date + "] "
+                        + currentTask.title + ": " + currentTask.description);
             }
         }
     }

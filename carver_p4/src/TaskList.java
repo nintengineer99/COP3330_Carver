@@ -5,6 +5,10 @@ public class TaskList {
 
     ArrayList<TaskItem> tasks = new ArrayList<>();
 
+    protected int getTaskIndex(TaskItem task) {
+        return tasks.indexOf(task);
+    }
+
     protected void addTask(TaskItem task) {
         tasks.add(task);
         taskCount++;
@@ -22,5 +26,27 @@ public class TaskList {
         editedTask.setTitle(newTitle);
         editedTask.setDesc(newDesc);
         editedTask.setDueDate(newDate);
+    }
+
+    protected void removeTask(int index) {
+        if (index < 0 || index > taskCount) {
+            throw new IndexOutOfBoundsException();
+        }
+        tasks.remove(index);
+        taskCount--;
+    }
+
+    protected void markOffTask(int index) {
+        if (index < 0 || index > taskCount) {
+            throw new IndexOutOfBoundsException();
+        }
+        getTask(index).isComplete = true;
+    }
+
+    public void unmarkTask(int index) {
+        if (index < 0 || index > taskCount) {
+            throw new IndexOutOfBoundsException();
+        }
+        getTask(index).isComplete = false;
     }
 }
