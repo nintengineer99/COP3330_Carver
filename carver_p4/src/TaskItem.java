@@ -2,7 +2,6 @@ import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.InputMismatchException;
 
 public class TaskItem implements Serializable {
     protected String title;
@@ -16,9 +15,7 @@ public class TaskItem implements Serializable {
     }
 
     protected void setTitle(String title) {
-        if (title.equalsIgnoreCase("")) {
-                throw new IllegalArgumentException();
-        }
+        checkTitleValidity(title);
         this.title = title;
     }
 
@@ -41,9 +38,28 @@ public class TaskItem implements Serializable {
     }
 
     protected void setDueDate(String date) {
+        checkDateValidity(date);
+        this.date = date;
+    }
+
+    protected String isTaskComplete() {
+        if (isComplete) {
+            return "***";
+        }
+        else {
+            return "---";
+        }
+    }
+
+    protected void checkTitleValidity(String title) {
+        if (title.equalsIgnoreCase("")) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    protected void checkDateValidity(String date) {
         if (currentDate.isAfter(getUserDate(date))) {
             throw new DateTimeException("WARNING: Invalid due date. Task not created");
         }
-        this.date = date;
     }
 }

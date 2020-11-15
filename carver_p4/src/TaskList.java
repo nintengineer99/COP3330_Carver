@@ -1,6 +1,10 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.Scanner;
+import java.lang.String;
 
 public class TaskList {
     int taskCount = 0;
@@ -56,14 +60,26 @@ public class TaskList {
         Formatter output = new Formatter(fileName);
         for(int i = 0; i < taskCount; i++) {
             TaskItem task = getTask(i);
-            if(!task.isComplete) {
-                output.format("%d) [%s] %s: %s%n", i, task.getDueDate(), task.getTitle(), task.getDesc());
-
-            }
-            else {
-                output.format("*** %d) [%s] %s: %s%n", i, task.getDueDate(), task.getTitle(), task.getDesc());
-            }
+            output.format("%s%n%d)%n[%s]%n%s%n%s%n", task.isTaskComplete(), i, task.getDueDate(), task.getTitle(), task.getDesc());
         }
         output.close();
+    }
+
+    protected void loadList(String fileName) throws IOException {
+        try (Scanner file = new Scanner(Paths.get(fileName))) {
+            while (file.hasNext()) {
+                TaskItem loadedTask = new TaskItem();
+                String isLoadedTaskComplete = file.nextLine();
+                loadedTask.isComplete = isLoadedTaskComplete.contains("***");
+                String ignoreIndex = file.nextLine();
+                String loadedDueDate = file.nextLine().replace("[", "").replace("]","");
+                String loadedTitle = file.nextLine();
+                String loadedDesc = file.nextLine();
+                loadedTask.setDueDate(loadedDueDate);
+                loadedTask.setTitle(loadedTitle);
+                loadedTask.setDesc(loadedDesc);
+                addTask(loadedTask);
+            }
+        }
     }
 }

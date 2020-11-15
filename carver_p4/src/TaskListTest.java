@@ -190,6 +190,7 @@ public class TaskListTest {
         task.setDueDate("9999-12-31");
         tasks.addTask(task);
         String date = tasks.getTask(0).getDueDate();
+        assertEquals("9999-12-31", date);
     }
 
     @Test
@@ -252,7 +253,11 @@ public class TaskListTest {
 
     @Test
     public void savedTaskListCanBeLoaded() {
-
+        assertDoesNotThrow( () -> {
+            TaskList tasks = new TaskList();
+            tasks.loadList("tasks.txt");
+        }
+        );
     }
 
     @Test

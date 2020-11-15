@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -9,12 +10,12 @@ public class App {
 
     public static void main(String[] args) {
         boolean shouldContinue = true;
-
         while(shouldContinue) {
             int userChoice1 = 0;
             displayMainMenu();
             try {
                 userChoice1 = in.nextInt();
+                in.nextLine();
                 switch (userChoice1) {
                     // create a new list
                     case 1:
@@ -27,54 +28,7 @@ public class App {
                             try {
                                 userChoice2 = in.nextInt();
                                 in.nextLine();
-                                switch (userChoice2) {
-                                    // view tasks
-                                    case 1:
-                                        System.out.println("Current Tasks");
-                                        System.out.println("-------------");
-                                        printTasks(taskList);
-                                        break;
-                                    // add item
-                                    case 2:
-                                        addTaskToList(taskList);
-                                        break;
-                                    // edit item
-                                    case 3:
-                                        System.out.println("Current Tasks");
-                                        System.out.println("-------------");
-                                        printTasks(taskList);
-                                        editTaskInList(taskList);
-                                        break;
-                                    // remove item
-                                    case 4:
-                                        System.out.println("Current Tasks");
-                                        System.out.println("-------------");
-                                        printTasks(taskList);
-                                        removeTaskInList(taskList);
-                                        break;
-                                    // mark as complete
-                                    case 5:
-                                        System.out.println("Uncompleted Tasks");
-                                        System.out.println("-----------------");
-                                        printIncompleteTasks(taskList);
-                                        markTaskAsComplete(taskList);
-                                        break;
-                                    // unmark as complete
-                                    case 6:
-                                        System.out.println("Completed Tasks");
-                                        System.out.println("---------------");
-                                        printCompleteTasks(taskList);
-                                        markTaskAsIncomplete(taskList);
-                                        break;
-                                    // save
-                                    case 7:
-                                        saveListToFile(taskList);
-                                        break;
-                                    // quit
-                                    case 8:
-                                        continueListOperations = false;
-                                        break;
-                                }
+                                continueListOperations = listOperationsMenu(userChoice2, taskList);
                             }
                             catch (IllegalArgumentException e) {
                                 System.out.println("WARNING: Numbers 1 through 8 are the only valid options.");
@@ -89,7 +43,30 @@ public class App {
                         break;
                     // load an existing list
                     case 2:
-
+                        TaskList loadedTaskList = new TaskList();
+                        System.out.print("Enter the file name to load: ");
+                        String fileName = in.nextLine();
+                        loadedTaskList.loadList(fileName);
+                        System.out.println("Task list has been loaded.");
+                        boolean continueLoadedListOperations = true;
+                        while (continueLoadedListOperations) {
+                            int userChoice3 = 0;
+                            displayListOperationMenu();
+                            try {
+                                userChoice3 = in.nextInt();
+                                in.nextLine();
+                                continueLoadedListOperations = listOperationsMenu(userChoice3, loadedTaskList);
+                            }
+                            catch (IllegalArgumentException e) {
+                                System.out.println("WARNING: Numbers 1 through 8 are the only valid options.");
+                            }
+                            catch (InputMismatchException e) {
+                                System.out.println("WARNING: You must only enter integers 1 through 8 to make your choice.");
+                            }
+                            finally {
+                                in.nextLine();
+                            }
+                        }
                         break;
                     // quit
                     case 3:
@@ -105,35 +82,53 @@ public class App {
             catch(InputMismatchException e) {
                 System.out.println("WARNING: You must only enter integers 1, 2, or 3 to make your choice.");
             }
-            finally {
+            catch (IOException e) {
+                System.out.println("WARNING: File could not be found. No file loaded.");
+            } finally {
                 in.nextLine();
             }
         }
     }
 
     private static void saveListToFile(TaskList tasks) {
-        System.out.print("Enter the file name to save as: ");
-        String fileName = in.nextLine();
         try {
+            if (tasks.taskCount == 0) {
+                throw new NoSuchFieldException();
+            }
+            System.out.print("Enter the file name to save as: ");
+            String fileName = in.nextLine();
             tasks.saveList(fileName);
+            System.out.println("Task list has been saved.");
         }
         catch (FileNotFoundException e) {
             System.out.println("WARNING: No such file was found. No list saved.");
         }
+        catch (NoSuchFieldException e) {
+            System.out.println("WARNING: You have no tasks to save.");
+        }
     }
 
     private static void markTaskAsIncomplete(TaskList tasks) {
-        System.out.print("Which task will you unmark as completed? ");
-        int index = in.nextInt();
-        in.nextLine();
         try {
+            if (tasks.taskCount == 0) {
+                throw new NoSuchFieldException();
+            }
+            System.out.println("Completed Tasks");
+            System.out.println("---------------");
+            printCompleteTasks(tasks);
+            System.out.print("Which task will you unmark as completed? ");
+            int index = in.nextInt();
+            in.nextLine();
             tasks.unmarkTask(index);
         }
-        catch(InputMismatchException e) {
+        catch (InputMismatchException e) {
             System.out.println("WARNING: You must enter the index of the task you wish to unmark as complete as an integer (0-based).");
         }
         catch (IndexOutOfBoundsException e) {
             System.out.println("WARNING: You cannot unmark that task complete because you called for an invalid index.");
+        }
+        catch (NoSuchFieldException e) {
+            System.out.println("WARNING: You have no tasks to unmark complete.");
         }
     }
 
@@ -148,10 +143,16 @@ public class App {
     }
 
     private static void markTaskAsComplete(TaskList tasks) {
-        System.out.print("Which task will you mark as completed? ");
-        int index = in.nextInt();
-        in.nextLine();
         try {
+            if (tasks.taskCount == 0) {
+                throw new NoSuchFieldException();
+            }
+            System.out.println("Uncompleted Tasks");
+            System.out.println("-----------------");
+            printIncompleteTasks(tasks);
+            System.out.print("Which task will you mark as completed? ");
+            int index = in.nextInt();
+            in.nextLine();
             tasks.markOffTask(index);
         }
         catch(InputMismatchException e) {
@@ -159,6 +160,9 @@ public class App {
         }
         catch (IndexOutOfBoundsException e) {
             System.out.println("WARNING: You cannot mark that task complete because you called for an invalid index.");
+        }
+        catch (NoSuchFieldException e) {
+            System.out.println("WARNING: You have no tasks to mark complete.");
         }
     }
 
@@ -173,9 +177,15 @@ public class App {
     }
 
     private static void removeTaskInList(TaskList taskList) {
-        System.out.print("What task will you remove? ");
-        int index = in.nextInt();
         try {
+            if (taskList.taskCount == 0) {
+                throw new NoSuchFieldException();
+            }
+            System.out.println("Current Tasks");
+            System.out.println("-------------");
+            printTasks(taskList);
+            System.out.print("What task will you remove? ");
+            int index = in.nextInt();
             taskList.removeTask(index);
         }
         catch(InputMismatchException e) {
@@ -184,15 +194,23 @@ public class App {
         catch (IndexOutOfBoundsException e) {
             System.out.println("WARNING: You cannot remove that task because you called for an invalid index.");
         }
+        catch (NoSuchFieldException e) {
+            System.out.println("WARNING: You have no tasks to remove");
+        }
     }
 
     private static void editTaskInList(TaskList taskList) {
-        System.out.print("What task will you edit? ");
-        int index = in.nextInt();
-        in.nextLine();
-        String newTitle, newDesc, newDate;
-        //TaskItem editedTask;
         try {
+            if (taskList.taskCount == 0) {
+                throw new NoSuchFieldException();
+            }
+            System.out.println("Current Tasks");
+            System.out.println("-------------");
+            printTasks(taskList);
+            System.out.print("What task will you edit? ");
+            int index = in.nextInt();
+            in.nextLine();
+            String newTitle, newDesc, newDate;
             System.out.print("Enter a new title for task " + index + ": ");
             newTitle = in.nextLine();
             System.out.print("Enter a new description for task " + index + ": ");
@@ -212,6 +230,9 @@ public class App {
         }
         catch (DateTimeException illegalDate) {
             System.out.println("WARNING: Invalid due date. Task not edited");
+        }
+        catch (NoSuchFieldException e) {
+            System.out.println("WARNING: There are no tasks to edit.");
         }
         finally{
             in.nextLine();
@@ -278,5 +299,44 @@ public class App {
                         + currentTask.title + ": " + currentTask.description);
             }
         }
+    }
+
+    private static boolean listOperationsMenu(int choice, TaskList taskList) {
+        switch (choice) {
+            // view tasks
+            case 1:
+                System.out.println("Current Tasks");
+                System.out.println("-------------");
+                printTasks(taskList);
+                break;
+            // add item
+            case 2:
+                addTaskToList(taskList);
+                break;
+            // edit item
+            case 3:
+                editTaskInList(taskList);
+                break;
+            // remove item
+            case 4:
+                removeTaskInList(taskList);
+                break;
+            // mark as complete
+            case 5:
+                markTaskAsComplete(taskList);
+                break;
+            // unmark as complete
+            case 6:
+                markTaskAsIncomplete(taskList);
+                break;
+            // save
+            case 7:
+                saveListToFile(taskList);
+                break;
+            // quit
+            case 8:
+                return false;
+        }
+        return true;
     }
 }

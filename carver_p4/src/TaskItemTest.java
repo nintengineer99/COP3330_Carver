@@ -11,7 +11,8 @@ public class TaskItemTest {
         Throwable exception = assertThrows(
                 DateTimeException.class, () -> {
                     TaskItem task = new TaskItem();
-                    task.setDueDate("1000-01-01");
+                    task.date = "2000-12-31";
+                    task.checkDateValidity(task.date);
                 }
         );
     }
@@ -21,7 +22,8 @@ public class TaskItemTest {
         Throwable exception = assertThrows(
                 IllegalArgumentException.class, () -> {
                     TaskItem task = new TaskItem();
-                    task.setTitle("");
+                    task.title = "";
+                    task.checkTitleValidity(task.title);
                 }
         );
     }
@@ -30,7 +32,8 @@ public class TaskItemTest {
     public void creatingTaskItemSucceedsWithValidDueDate() {
         assertDoesNotThrow( () -> {
                     TaskItem task = new TaskItem();
-                    task.setDueDate("9999-12-31");
+                    task.date = "9999-12-31";
+                    task.checkDateValidity(task.date);
                 }
         );
     }
@@ -39,28 +42,51 @@ public class TaskItemTest {
     public void creatingTaskItemSucceedsWithValidTitle() {
         assertDoesNotThrow( () -> {
                     TaskItem task = new TaskItem();
-                    task.setTitle("E");
+                    task.title = "E";
+                    task.checkTitleValidity(task.title);
                 }
         );
     }
 
     @Test
     public void settingTaskItemDueDateFailsWithInvalidDate() {
-
+        Throwable exception = assertThrows(
+                DateTimeException.class, () -> {
+                    TaskItem task = new TaskItem();
+                    String date = "2000-12-31";
+                    task.setDueDate(date);
+                }
+        );
     }
 
     @Test
     public void settingTaskItemDueDateSucceedsWithValidDate() {
-
+        assertDoesNotThrow( () -> {
+                    TaskItem task = new TaskItem();
+                    String date = "9999-12-31";
+                    task.setDueDate(date);
+                }
+        );
     }
 
     @Test
     public void settingTaskItemTitleFailsWithInvalidTitle() {
-
+        Throwable exception = assertThrows(
+                IllegalArgumentException.class, () -> {
+                    TaskItem task = new TaskItem();
+                    String title = "";
+                    task.setTitle(title);
+                }
+        );
     }
 
     @Test
     public void settingTaskItemTitleSucceedsWithValidTitle() {
-
+        assertDoesNotThrow( () -> {
+                    TaskItem task = new TaskItem();
+                    String title = "E";
+                    task.setTitle(title);
+                }
+        );
     }
 }
