@@ -36,6 +36,8 @@ public class TaskList {
             throw new IndexOutOfBoundsException();
         }
         TaskItem editedTask = getTask(index);
+        editedTask.checkTitleValidity(newTitle);
+        editedTask.checkDateValidity(newDate);
         editedTask.setTitle(newTitle);
         editedTask.setDesc(newDesc);
         editedTask.setDueDate(newDate);

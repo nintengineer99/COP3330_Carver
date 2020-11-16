@@ -265,6 +265,9 @@ public class App {
             System.out.print("What task will you edit? ");
             int index = in.nextInt();
             in.nextLine();
+            if (index < 0 || (index + 1) > taskList.taskCount) {
+                throw new IndexOutOfBoundsException();
+            }
             // input new title, description, and due date for chosen task
             String newTitle, newDesc, newDate;
             System.out.print("Enter a new title for task " + index + ": ");
@@ -289,7 +292,7 @@ public class App {
         }
         // due date is either not in appropriate form or is in the past
         catch (DateTimeException illegalDate) {
-            System.out.println("WARNING: Invalid due date. Task not edited");
+            System.out.println("WARNING: Invalid due date. Task not edited.");
         }
         // if there are no tasks stop user from trying to edit
         catch (NoSuchFieldException e) {
@@ -408,6 +411,8 @@ public class App {
             // quit
             case 8:
                 return false;
+            default:
+                throw new IllegalArgumentException();
         }
         return true;
     }
