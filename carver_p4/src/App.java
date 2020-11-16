@@ -294,6 +294,10 @@ public class App {
         catch (DateTimeException illegalDate) {
             System.out.println("WARNING: Invalid due date. Task not edited.");
         }
+        // user tried to enter an invalid leap year date i.e. 2021-02-29
+        catch (IllegalStateException e) {
+            System.out.println("WARNING: Year entered is not a leap year. Task not edited.");
+        }
         // if there are no tasks stop user from trying to edit
         catch (NoSuchFieldException e) {
             System.out.println("WARNING: There are no tasks to edit.");
@@ -353,6 +357,10 @@ public class App {
         // date's format is incorrect or date is in the past
         catch (DateTimeException illegalDate) {
             System.out.println("WARNING: Invalid due date. Task not created");
+        }
+        // user tried to enter an invalid leap year date i.e. 2021-02-29
+        catch (IllegalStateException e) {
+            System.out.println("WARNING: Year entered is not a leap year. Task not created.");
         }
         // clear input buffer
         finally {

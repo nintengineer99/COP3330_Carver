@@ -66,7 +66,12 @@ public class TaskItem {
     // checks that the due date is not in the past
     protected void checkDateValidity(String date) {
         if (currentDate.isAfter(getUserDate(date))) {
-            throw new DateTimeException("WARNING: Invalid due date. Task not created");
+            throw new DateTimeException("WARNING: Invalid due date. Task not created/edited.");
+        }
+        if (getUserDate(date).getMonthValue() == 2) {
+            if (!getUserDate(date).isLeapYear()) {
+                throw new IllegalStateException("WARNING: Year entered is not a leap year. Task not created/edited.");
+            }
         }
     }
 }
