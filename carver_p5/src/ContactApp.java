@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -72,7 +73,7 @@ public class ContactApp {
                 removeContactFromList(contactList);
                 break;
             case 5:
-
+                saveContactListToFile(contactList);
                 break;
             case 6:
                 return false;
@@ -80,6 +81,24 @@ public class ContactApp {
                 throw new IndexOutOfBoundsException();
         }
         return true;
+    }
+
+    private static void saveContactListToFile(ContactList contactList) {
+        try {
+            if (contactList.contactCount == 0) {
+                throw new NoSuchFieldException();
+            }
+            System.out.print("Enter the file name to save as: ");
+            String fileName = in.nextLine();
+            contactList.saveContactList(fileName);
+            System.out.println("Contact list has been saved.");
+        }
+        catch (NoSuchFieldException e) {
+            System.out.println("WARNING: You have no contacts to save.");
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("WARNING: No such file exists. List not saved.");
+        }
     }
 
     private static void removeContactFromList(ContactList contactList) {

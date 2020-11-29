@@ -24,4 +24,9 @@ public class ContactItem {
     protected void setPhoneNumber(String newPhoneNum) {this.phoneNumber = newPhoneNum;}
 
     protected void setEmail(String newEmail) {this.email = newEmail;}
+
+    @Override
+    public String toString() {
+        return(firstName + "%n" + lastName + "%n" + phoneNumber + "%n" + email);
+    }
 }

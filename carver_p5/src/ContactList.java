@@ -1,4 +1,6 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Formatter;
 
 public class ContactList {
     int contactCount = 0;
@@ -25,5 +27,14 @@ public class ContactList {
     protected void removeContact(int index) {
         contacts.remove(index);
         contactCount--;
+    }
+
+    protected void saveContactList(String fileName) throws FileNotFoundException {
+        Formatter output = new Formatter(fileName);
+        for (int i = 0; i < contactCount; i++) {
+            ContactItem contactItem = getContact(i);
+            output.format(contactItem.toString());
+        }
+        output.close();
     }
 }
