@@ -13,12 +13,17 @@ public class ContactList {
 
     protected int getContactIndex(ContactItem contact) {return contacts.indexOf(contact);}
 
-    public void editContact(int index, String newFirstName, String newLastName, String newPhoneNum, String newEmail) {
+    protected void editContact(int index, String newFirstName, String newLastName, String newPhoneNum, String newEmail) {
         ContactItem editedContact = getContact(index);
         editedContact.checkContactValidity(newFirstName, newLastName, newPhoneNum, newEmail);
         editedContact.setFirstName(newFirstName);
         editedContact.setLastName(newLastName);
         editedContact.setPhoneNumber(newPhoneNum);
         editedContact.setEmail(newEmail);
+    }
+
+    protected void removeContact(int index) {
+        contacts.remove(index);
+        contactCount--;
     }
 }

@@ -69,7 +69,7 @@ public class ContactApp {
                 editContactInList(contactList);
                 break;
             case 4:
-
+                removeContactFromList(contactList);
                 break;
             case 5:
 
@@ -80,6 +80,32 @@ public class ContactApp {
                 throw new IndexOutOfBoundsException();
         }
         return true;
+    }
+
+    private static void removeContactFromList(ContactList contactList) {
+        try {
+            if (contactList.contactCount == 0) {
+                throw new NoSuchFieldException();
+            }
+            System.out.println("Current Contacts");
+            System.out.println("----------------");
+            printContacts(contactList);
+            System.out.print("What contact will you remove? ");
+            int index = in.nextInt();
+            if (index < 0 || (index + 1) > contactList.contactCount) {
+                throw new IndexOutOfBoundsException();
+            }
+            contactList.removeContact(index);
+        }
+        catch (NoSuchFieldException e) {
+            System.out.println("WARNING: You have no contacts to remove.");
+        }
+        catch(InputMismatchException e) {
+            System.out.println("WARNING: You must enter the index of the contact you wish to remove as an integer (0-based).");
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("WARNING: You cannot remove that contact because you called for an invalid index.");
+        }
     }
 
     private static void editContactInList(ContactList contactList) {
