@@ -144,6 +144,10 @@ public class ContactListTest {
 
     @Test
     public void savedContactListCanBeLoaded() {
-
+        assertDoesNotThrow( () -> {
+            ContactList contactList = new ContactList();
+            contactList.loadContactList("example.txt");
+        }
+        );
     }
 }

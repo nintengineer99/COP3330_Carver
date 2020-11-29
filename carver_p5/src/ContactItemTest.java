@@ -161,6 +161,8 @@ public class ContactItemTest {
 
     @Test
     public void testToString() {
-
+        ContactItem contactItem = new ContactItem("Example", "Contact",
+                "111-111-1111", "example@email.com");
+        assertEquals("Example%nContact%n111-111-1111%nexample@email.com", contactItem.toString());
     }
 }
