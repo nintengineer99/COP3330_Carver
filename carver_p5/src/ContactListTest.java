@@ -5,7 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ContactListTest {
     @Test
     public void addingItemsIncreasesSize() {
-
+        ContactList contacts = new ContactList();
+        ContactItem contact = new ContactItem("Example", "Contact", "111-111-1111",
+                "example@email.com");
+        contacts.addContact(contact);
+        assertEquals(1, contacts.contactCount);
     }
 
     @Test
@@ -55,6 +59,6 @@ public class ContactListTest {
 
     @Test
     public void savedContactListCanBeLoaded() {
-        
+
     }
 }
