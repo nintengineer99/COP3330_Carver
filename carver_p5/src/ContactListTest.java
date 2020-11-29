@@ -121,12 +121,25 @@ public class ContactListTest {
 
     @Test
     public void removingItemsDecreasesSize() {
-
+        ContactList contactList = new ContactList();
+        ContactItem contactItem = new ContactItem("Example", "Contact",
+                "111-111-1111", "example@email.com");
+        contactList.addContact(contactItem);
+        contactList.removeContact(0);
+        assertEquals(0, contactList.contactCount);
     }
 
     @Test
     public void removingItemsFailsWithInvalidIndex() {
-
+        Throwable exception = assertThrows(
+                IndexOutOfBoundsException.class, () -> {
+                    ContactList contactList = new ContactList();
+                    ContactItem contactItem = new ContactItem("Example", "Contact",
+                            "111-111-1111", "example@email.com");
+                    contactList.addContact(contactItem);
+                    contactList.removeContact(1);
+                }
+        );
     }
 
     @Test
