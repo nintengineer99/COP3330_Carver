@@ -8,7 +8,7 @@ public class ContactItemTest {
         Throwable exception = assertThrows(
             IllegalArgumentException.class, () -> {
                 ContactItem contact = new ContactItem("", "", "", "");
-                contact.checkContactValidity();
+                contact.checkContactValidity("", "", "", "");
             }
         );
     }
@@ -18,7 +18,8 @@ public class ContactItemTest {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "Contact",
                             "111-111-1111", "");
-                    contact.checkContactValidity();
+                    contact.checkContactValidity("Example", "Contact",
+                            "111-111-1111", "");
                 }
         );
     }
@@ -28,7 +29,8 @@ public class ContactItemTest {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("", "Contact",
                             "111-111-1111", "example@email.com");
-                    contact.checkContactValidity();
+                    contact.checkContactValidity("", "Contact",
+                            "111-111-1111", "example@email.com");
                 }
         );
     }
@@ -38,7 +40,8 @@ public class ContactItemTest {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "",
                             "111-111-1111", "example@email.com");
-                    contact.checkContactValidity();
+                    contact.checkContactValidity("Example", "",
+                            "111-111-1111", "example@email.com");
                 }
         );
     }
@@ -48,7 +51,8 @@ public class ContactItemTest {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "Contact",
                             "", "example@email.com");
-                    contact.checkContactValidity();
+                    contact.checkContactValidity("Example", "Contact",
+                            "", "example@email.com");
                 }
         );
     }
@@ -58,7 +62,8 @@ public class ContactItemTest {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "Contact",
                             "111-111-1111", "example@email.com");
-                    contact.checkContactValidity();
+                    contact.checkContactValidity("Example", "Contact",
+                            "111-111-1111", "example@email.com");
                 }
         );
     }

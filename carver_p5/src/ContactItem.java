@@ -11,9 +11,17 @@ public class ContactItem {
         this.email = email;
     }
 
-    protected void checkContactValidity() {
-        if (firstName.equals("") && lastName.equals("") && phoneNumber.equals("") && email.equals("")) {
+    protected void checkContactValidity(String firstName, String lastName, String phoneNum, String email) {
+        if (firstName.equals("") && lastName.equals("") && phoneNum.equals("") && email.equals("")) {
             throw new IllegalArgumentException();
         }
     }
+
+    protected void setFirstName(String newFirstName) {this.firstName = newFirstName;}
+
+    protected void setLastName(String newLastName) {this.lastName = newLastName;}
+
+    protected void setPhoneNumber(String newPhoneNum) {this.phoneNumber = newPhoneNum;}
+
+    protected void setEmail(String newEmail) {this.email = newEmail;}
 }
