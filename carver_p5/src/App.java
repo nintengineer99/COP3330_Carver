@@ -7,7 +7,7 @@ public class App {
         while(continueOperation) {
             System.out.println("Select your application");
             System.out.println("-----------------------");
-            System.out.printf("%n%n1) Task List%n2) Contact List%n3) Quit%n%n> ");
+            System.out.printf("%n1) Task List%n2) Contact List%n3) Quit%n%n> ");
             int choice = in.nextInt();
             switch (choice) {
                 case 1:
