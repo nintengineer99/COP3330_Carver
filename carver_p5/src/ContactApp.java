@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ public class ContactApp {
             displayMainMenu();
             try {
                 int choice = in.nextInt();
+                in.nextLine();
                 switch(choice) {
                     case 1:
                         ContactList contactList = new ContactList();
@@ -35,7 +37,29 @@ public class ContactApp {
                         }
                         break;
                     case 2:
-
+                        ContactList loadedContactList = new ContactList();
+                        System.out.print("Enter the file name to load: ");
+                        String fileName = in.nextLine();
+                        loadedContactList.loadContactList(fileName);
+                        System.out.println("Contact list has been loaded.");
+                        boolean continueLoadedContactListOperations = true;
+                        while (continueLoadedContactListOperations) {
+                            displayListOperationMenu();
+                            try {
+                                int choice3 = in.nextInt();
+                                in.nextLine();
+                                continueLoadedContactListOperations = listOperationsMenu(choice3, loadedContactList);
+                            }
+                            catch (InputMismatchException e) {
+                                System.out.println("WARNING: You must enter your choice as an integer.");
+                            }
+                            catch (IndexOutOfBoundsException e) {
+                                System.out.println("WARNING: You must enter a number from 1 to 6.");
+                            }
+                            finally {
+                                in.nextLine();
+                            }
+                        }
                         break;
                     case 3:
                         shouldContinue = false;
@@ -49,6 +73,9 @@ public class ContactApp {
             }
             catch (InputMismatchException e) {
                 System.out.println("WARNING: You must enter your choice as an integer.");
+            }
+            catch (IOException e) {
+                System.out.println("WARNING: File could not be found. No file loaded.");
             }
             finally {
                 in.nextLine();

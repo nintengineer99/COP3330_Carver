@@ -1,6 +1,9 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.Scanner;
 
 public class ContactList {
     int contactCount = 0;
@@ -36,5 +39,21 @@ public class ContactList {
             output.format(contactItem.toString());
         }
         output.close();
+    }
+
+    protected void loadContactList(String fileName) throws IOException {
+        try (Scanner file = new Scanner(Paths.get(fileName))) {
+            while (file.hasNext()) {
+                String loadedFirstName = file.nextLine();
+                String loadedLastName = file.nextLine();
+                String loadedPhoneNum = file.nextLine();
+                String loadedEmail = file.nextLine();
+                ContactItem loadedContact = new ContactItem(loadedFirstName, loadedLastName,
+                        loadedPhoneNum, loadedEmail);
+                loadedContact.checkContactValidity(loadedFirstName, loadedLastName,
+                        loadedPhoneNum, loadedEmail);
+                addContact(loadedContact);
+            }
+        }
     }
 }
