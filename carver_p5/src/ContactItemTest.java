@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ContactItemTest {
     @Test
+    // checks that creating a contact fails when all fields are empty
     public void creationFailsWithAllBlankValues() {
         Throwable exception = assertThrows(
             IllegalArgumentException.class, () -> {
@@ -14,6 +15,7 @@ public class ContactItemTest {
     }
 
     @Test
+    // creating a contact w/ no email succeeds
     public void creationSucceedsWithBlankEmail() {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "Contact",
@@ -25,6 +27,7 @@ public class ContactItemTest {
     }
 
     @Test
+    // creating a contact w/ no first name succeeds
     public void creationSucceedsWithBlankFirstName() {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("", "Contact",
@@ -36,6 +39,7 @@ public class ContactItemTest {
     }
 
     @Test
+    // creating a contact w/ no last name succeeds
     public void creationSucceedsWithBlankLastName() {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "",
@@ -47,6 +51,7 @@ public class ContactItemTest {
     }
 
     @Test
+    // creating a contact w/ no phone number succeeds
     public void creationSucceedsWithBlankPhone() {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "Contact",
@@ -58,6 +63,7 @@ public class ContactItemTest {
     }
 
     @Test
+    // creating a contact w/ all fields filled succeeds
     public void creationSucceedsWithNonBlankValues() {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "Contact",
@@ -69,6 +75,7 @@ public class ContactItemTest {
     }
 
     @Test
+    // checks that editing a contact fails when all fields are empty
     public void editingFailsWithAllBlankValues() {
         Throwable exception = assertThrows(
                 IllegalArgumentException.class, () -> {
@@ -85,6 +92,7 @@ public class ContactItemTest {
     }
 
     @Test
+    // editing a contact w/ no email succeeds
     public void editingSucceedsWithBlankEmail() {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "Contact",
@@ -100,6 +108,7 @@ public class ContactItemTest {
     }
 
     @Test
+    // editing a contact w/ no first name succeeds
     public void editingSucceedsWithBlankFirstName() {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "Contact",
@@ -115,6 +124,7 @@ public class ContactItemTest {
     }
 
     @Test
+    // editing a contact w/ no last name succeeds
     public void editingSucceedsWithBlankLastName() {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "Contact",
@@ -130,6 +140,7 @@ public class ContactItemTest {
     }
 
     @Test
+    // editing a contact w/ no phone number succeeds
     public void editingSucceedsWithBlankPhone() {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "Contact",
@@ -145,6 +156,7 @@ public class ContactItemTest {
     }
 
     @Test
+    // editing a contact w/ all fields filled succeeds
     public void editingSucceedsWithNonBlankValues() {
         assertDoesNotThrow( () -> {
                     ContactItem contact = new ContactItem("Example", "Contact",
@@ -160,6 +172,7 @@ public class ContactItemTest {
     }
 
     @Test
+    // tests that the toString method outputs properly
     public void testToString() {
         ContactItem contactItem = new ContactItem("Example", "Contact",
                 "111-111-1111", "example@email.com");
